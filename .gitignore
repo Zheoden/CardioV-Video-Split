@@ -4,6 +4,7 @@ node_modules
 
 # Config Files
 .env
+.env.*
 
 # Frames files
 frames
