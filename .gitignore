@@ -1,0 +1,22 @@
+
+# Node artifact files
+node_modules
+
+# Config Files
+.env
+.env.*
+
+# Frames files
+frames
+
+# Coverage folder
+output/
+junit.xml
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
