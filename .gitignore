@@ -2,6 +2,9 @@
 # Node artifact files
 node_modules
 
+# Building folder
+dist
+
 # Config Files
 .env
 .env.*

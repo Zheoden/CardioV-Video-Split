@@ -3,8 +3,8 @@
     "node_modules"
   ],
   "watch": [
-    "./",
+    "src",
     "package-lock.json"
   ],
-  "exec": "npm start"
+  "exec": "npm run build && npm start"
 }

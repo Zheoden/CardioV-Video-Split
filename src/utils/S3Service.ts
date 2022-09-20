@@ -1,7 +1,7 @@
 import AWS from 'aws-sdk';
 import 'dotenv/config';
 
-// AWSOperation = 'getObject' | 'putObject';
+export type AWSOperation = 'getObject' | 'putObject';
 const s3 = new AWS.S3({
   signatureVersion: 'v4',
   accessKeyId: process.env.AWS_ACCESS_KEY,
@@ -9,19 +9,19 @@ const s3 = new AWS.S3({
 });
 
 export class S3Service {
-  #AWS_ASSETS_BUCKET = process.env.AWS_ASSETS_BUCKET ?? '';
-  uploadFile = async (file /* Express.Multer.File */) => {
+  private AWS_ASSETS_BUCKET = process.env.AWS_ASSETS_BUCKET ?? '';
+  uploadFile = async (file: Express.Multer.File) => {
     const { originalname } = file;
-    return await this.#s3_upload(file.buffer, this.#AWS_ASSETS_BUCKET, originalname, file.mimetype);
+    return await this.s3_upload(file.buffer, this.AWS_ASSETS_BUCKET, originalname, file.mimetype);
   };
 
-  uploadBuffer = async (file, name, mimeType) => {
-    return await this.#s3_upload(file, this.#AWS_ASSETS_BUCKET, name, mimeType);
+  uploadBuffer = async (file: Buffer, name: string, mimeType: string) => {
+    return await this.s3_upload(file, this.AWS_ASSETS_BUCKET, name, mimeType);
   };
 
-  getSignedUrl = async (id, operation) => {
+  public async getSignedUrl(id: number, operation: AWSOperation) {
     const params = {
-      Bucket: this.#AWS_ASSETS_BUCKET,
+      Bucket: this.AWS_ASSETS_BUCKET,
       Key: String(id),
       Expires: 300,
       ACL: 'public-read',
@@ -29,9 +29,9 @@ export class S3Service {
     return await s3.getSignedUrlPromise(operation, params);
   };
 
-  deleteFile = async id => {
+  public async deleteFile(id: number) {
     const params = {
-      Bucket: this.#AWS_ASSETS_BUCKET,
+      Bucket: this.AWS_ASSETS_BUCKET,
       Key: String(id),
     };
     return await s3.deleteObject(params).promise();
@@ -45,7 +45,7 @@ export class S3Service {
    * @param  {[String]} mimetype [description]
    * @return {[]}      [description]
    */
-  #s3_upload = async (file, bucket, name, mimetype) => {
+  private async s3_upload(file: Buffer, bucket: string, name: string, mimetype: string) {
     const params = {
       Bucket: bucket,
       Key: String(name),
