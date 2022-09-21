@@ -1,4 +1,5 @@
-import { Entity, PrimaryColumn, Column, BaseEntity, OneToMany } from 'typeorm';
+import { Entity, PrimaryColumn, Column, OneToMany, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { BaseEntity } from '../config/baseEntity';
 import { Media } from './media';
 
 @Entity('users')
