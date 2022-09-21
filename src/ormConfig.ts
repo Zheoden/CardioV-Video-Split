@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { DB_USERNAME, DB_PASSWORD } from './config/constants';
+import { DB_USERNAME, DB_PASSWORD } from './common/constants';
 
 export const myDataSource = new DataSource({
   type: 'mariadb',

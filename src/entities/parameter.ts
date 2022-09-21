@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { BaseEntity } from '../config/baseEntity';
+import { BaseEntity } from '../common/baseEntity';
 import { Media } from './media';
 
 @Entity('parameter')

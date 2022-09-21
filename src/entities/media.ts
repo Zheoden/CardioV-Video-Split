@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
-import { BaseEntity } from '../config/baseEntity';
+import { BaseEntity } from '../common/baseEntity';
 import { Parameter } from './parameter';
 import { User } from './user';
 
