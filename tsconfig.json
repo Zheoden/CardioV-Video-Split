@@ -14,6 +14,7 @@
     "isolatedModules": true,
     "typeRoots": ["./node_modules/@types"],
     "outDir": "dist",
+    "rootDir": "src",
     "sourceMap": true,
     "declaration": true,
     "noImplicitReturns": true,
@@ -21,10 +22,9 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
-  "include": ["src", "__tests__"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

@@ -7,7 +7,7 @@
     "test": "test",
     "build": "rm -rf dist && tsc",
     "start": "node dist/server.js",
-    "start:dev": "nodemon --watch src",
+    "start:dev": "nodemon --watch src -e ts",
     "lint": "eslint src/**/*.{ts,tsx}",
     "format": "eslint src/**/*.{ts,tsx} --fix"
   },

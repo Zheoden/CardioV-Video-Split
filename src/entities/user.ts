@@ -1,16 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Entity, PrimaryColumn, Column, BaseEntity, OneToMany } from 'typeorm';
+import { Media } from './media';
 
-@Entity()
+@Entity('users')
 export class User extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id?: number;
+  @PrimaryColumn()
+  id?: string;
 
-  @Column()
+  @Column({ name: 'first_name' })
   firstName?: string;
 
-  @Column()
+  @Column({ name: 'last_name' })
   lastName?: string;
 
   @Column()
-  age?: number;
+  birthdate?: string;
+
+  @Column()
+  avatar?: string;
+
+  @OneToMany(() => Media, media => media.user, { cascade: true })
+  portfolio?: Media[];
 }
