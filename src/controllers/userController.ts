@@ -1,21 +1,29 @@
-import { Router } from 'express';
+import { NextFunction, Router } from 'express';
 import UserService from '../services/userService';
 import { AuthMiddleware } from '../common/authMiddleware';
 
 const userService = new UserService();
 const router = Router();
 
-router.get('/me', AuthMiddleware, async (req: any, res) => {
-  console.log(req.user);
-  return res.status(200).json('Ping');
+router.get('/me', AuthMiddleware, async (req: any, res, next: NextFunction) => {
+  userService
+    .getUserAsync(req.user.sub)
+    .then(user => res.status(200).json(user))
+    .catch(err => next(err));
 });
 
-router.post('/register', async (_req, res) => {
-  return res.status(200).json('Ping');
+router.post('/register', AuthMiddleware, async (req: any, res, next: NextFunction) => {
+  userService
+    .registerUserAsync(req.user.sub)
+    .then(user => res.status(200).json(user))
+    .catch(err => next(err));
 });
 
-router.patch('/me', async (_req, res) => {
-  return res.status(200).json('Ping');
+router.patch('/me', AuthMiddleware, async (req: any, res, next: NextFunction) => {
+  userService
+    .updateUserAsync(req.user.sub)
+    .then(user => res.status(200).json(user))
+    .catch(err => next(err));
 });
 
 export default router;

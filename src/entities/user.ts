@@ -1,4 +1,4 @@
-import { Entity, PrimaryColumn, Column, OneToMany, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, PrimaryColumn, Column, OneToMany, UpdateDateColumn, DeleteDateColumn, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../common/baseEntity';
 import { Media } from './media';
 
@@ -19,6 +19,6 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   avatar?: string;
 
-  @OneToMany(() => Media, media => media.user, { cascade: true })
+  @OneToMany(() => Media, media => media.user, { cascade: true, eager: true })
   portfolio?: Media[];
 }

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
 import { BaseEntity } from '../common/baseEntity';
 import { Parameter } from './parameter';
 import { User } from './user';
@@ -24,5 +24,6 @@ export class Media extends BaseEntity {
   parameters?: Parameter[];
 
   @ManyToOne(() => User, user => user.portfolio, { orphanedRowAction: 'delete' })
+  @JoinColumn({ name: "user_id"})
   user?: User;
 }
