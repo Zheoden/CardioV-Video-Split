@@ -7,16 +7,16 @@ export class User extends BaseEntity {
   @PrimaryColumn()
   id?: string;
 
-  @Column({ name: 'first_name' })
+  @Column({ name: 'first_name', nullable: true })
   firstName?: string;
 
-  @Column({ name: 'last_name' })
+  @Column({ name: 'last_name', nullable: true })
   lastName?: string;
 
-  @Column()
+  @Column({ nullable: true })
   birthdate?: string;
 
-  @Column()
+  @Column({ nullable: true })
   avatar?: string;
 
   @OneToMany(() => Media, media => media.user, { cascade: true })

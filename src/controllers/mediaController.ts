@@ -18,4 +18,9 @@ router.post('/', upload.single('file'), async (req, res) => {
   }
 });
 
+// TODO: Get media by Id
+router.get('/:id', async (_req, res) => {
+  return res.status(200).json('Ping');
+});
+
 export default router;
