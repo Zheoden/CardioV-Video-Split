@@ -1,7 +1,7 @@
 import { validateOrReject } from 'class-validator';
 import { NextFunction, Router } from 'express';
 import multer from 'multer';
-import { AuthMiddleware } from '../common/authMiddleware.js';
+import { AuthMiddleware } from '../auth/authMiddleware.js';
 import { MediaCreateDto } from '../dtos/media-create.dto.js';
 import MediaService from '../services/mediaService.js';
 

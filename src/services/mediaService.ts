@@ -1,16 +1,35 @@
 import { S3Service } from '../utils/S3Service.js';
 import { v4 } from 'uuid';
-import 'dotenv/config';
 import { MediaRepository } from '../common/repositories.js';
 import { CDN_URL } from '../common/constants.js';
 import { MediaCreateDto } from '../dtos/media-create.dto.js';
+import { ProcessMediaFile } from '../utils/videoProcessService.js';
+import { ParameterDto } from '../dtos/parameter.dto.js';
 
 const s3Service = new S3Service();
 
 export default class MediaService {
   public async createMediaAsync(userId: string, mediaDto: MediaCreateDto, file: Express.Multer.File): Promise<void> {
     const filename = await this.processFile(file);
-    await MediaRepository.save({ ...mediaDto, userId, thumbnail: `${CDN_URL}/${filename}`, createdAt: new Date().toISOString() });
+    const parameters = await ProcessMediaFile(filename);
+    const mediaParameters: ParameterDto[] = [];
+    for (const [key, value] of Object.entries(parameters)) {
+      if (Number(value) !== -1) {
+        mediaParameters.push({
+          field: key,
+          value: value,
+          unit: 'cm3',
+          createdAt: new Date().toISOString(),
+        });
+      }
+    }
+    await MediaRepository.save({
+      ...mediaDto,
+      userId,
+      thumbnail: `${CDN_URL}/${filename}`,
+      createdAt: new Date().toISOString(),
+      parameters: mediaParameters,
+    });
   }
 
   public async processFile(file: Express.Multer.File): Promise<string> {

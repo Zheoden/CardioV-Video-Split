@@ -1,5 +1,5 @@
 import { Entity, PrimaryColumn, Column, OneToMany, UpdateDateColumn, DeleteDateColumn, JoinColumn } from 'typeorm';
-import { BaseEntity } from '../common/baseEntity';
+import { BaseEntity } from '../utils/baseEntity';
 import { Media } from './media';
 
 @Entity('users')

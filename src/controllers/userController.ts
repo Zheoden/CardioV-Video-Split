@@ -1,6 +1,6 @@
 import { NextFunction, Router } from 'express';
 import UserService from '../services/userService';
-import { AuthMiddleware } from '../common/authMiddleware';
+import { AuthMiddleware } from '../auth/authMiddleware';
 
 const userService = new UserService();
 const router = Router();

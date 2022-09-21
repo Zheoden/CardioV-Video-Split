@@ -2,9 +2,8 @@ import express from 'express';
 import MediaController from './controllers/mediaController';
 import UserController from './controllers/userController';
 import { myDataSource } from './ormConfig';
-import 'dotenv/config';
+import { PORT } from './common/constants';
 
-const port = process.env.PORT ?? 3000;
 let app = express();
 
 myDataSource
@@ -25,6 +24,6 @@ app.use((err: any, req: any, res: any, next: any) => {
   res.status(500).send({ message: 'Error, nada salio flama :(' });
 });
 
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });

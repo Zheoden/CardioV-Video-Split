@@ -1,5 +1,4 @@
 import AWS from 'aws-sdk';
-import 'dotenv/config';
 import { AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY, AWS_ASSETS_BUCKET } from '../common/constants';
 
 export type AWSOperation = 'getObject' | 'putObject';
