@@ -2,6 +2,7 @@ import express from 'express';
 import MediaController from './controllers/mediaController';
 import UserController from './controllers/userController';
 import { myDataSource } from './ormConfig';
+import cors from 'cors';
 import { PORT } from './common/constants';
 
 let app = express();
@@ -15,6 +16,7 @@ myDataSource
     console.error('Error during Data Source initialization:', err);
   });
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/media', MediaController);
