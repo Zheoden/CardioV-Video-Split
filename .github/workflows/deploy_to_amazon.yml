@@ -29,5 +29,5 @@ jobs:
         application_name: cardiov-api
         environment_name: cardiov-api
         region: ${{ secrets.AWS_DEFAULT_REGION }}
-        version_label: 12345
+        version_label: ${{ github.run_number }}
         deployment_package: deploy.zip
