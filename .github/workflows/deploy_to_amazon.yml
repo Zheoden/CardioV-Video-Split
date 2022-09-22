@@ -2,32 +2,32 @@ name: Deploy main
 on:
   push:
     branches:
-    - main
+      - main
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
 
-    - name: Checkout source code
-      uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install dependencies
-      run: npm install
+      - name: Build server
+        run: npm run build
 
-    - name: Build server
-      run: npm run build
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x node_modules/\* .git\* src\*
 
-    - name: Generate deployment package
-      run: zip -r deploy.zip . -x node_modules/\* .git\* src\*
-
-    - name: Deploy to EB
-      uses: einaregilsson/beanstalk-deploy@v20
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: cardiov-api
-        environment_name: cardiov-api
-        region: ${{ secrets.AWS_DEFAULT_REGION }}
-        version_label: ${{ github.run_number }}
-        deployment_package: deploy.zip
+      - name: Deploy to EB
+        uses: einaregilsson/beanstalk-deploy@v20
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: cardiov-api
+          environment_name: cardiov-api
+          region: ${{ secrets.AWS_DEFAULT_REGION }}
+          version_label: ${{ github.run_number }}
+          use_existing_version_if_available: true
+          deployment_package: deploy.zip
