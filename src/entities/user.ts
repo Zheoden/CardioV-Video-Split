@@ -19,6 +19,6 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   avatar?: string;
 
-  @OneToMany(() => Media, media => media.user, { cascade: true, eager: true })
+  @OneToMany(() => Media, media => media.user, { cascade: true })
   portfolio?: Media[];
 }

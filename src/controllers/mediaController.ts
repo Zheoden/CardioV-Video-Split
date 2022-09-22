@@ -25,9 +25,21 @@ router.post('/', AuthMiddleware, upload.single('file'), async (req: any, res, ne
   }
 });
 
-// TODO: Get media by Id
-router.get('/:id', async (_req, res) => {
-  return res.status(200).json('Ping');
+router.get('/me', AuthMiddleware, async (req: any, res, next: NextFunction) => {
+  const userId = req.user.sub;
+  mediaService
+    .getAllMediaByUserAsync(userId)
+    .then(data => res.status(200).json(data))
+    .catch(err => next(err));
+});
+
+router.get('/:id', AuthMiddleware, async (req: any, res, next: NextFunction) => {
+  const userId = req.user.sub;
+  const mediaId = req.params.id;
+  mediaService
+    .getMediaByIdAsync(userId, mediaId)
+    .then(data => res.status(200).json(data))
+    .catch(err => next(err));
 });
 
 export default router;

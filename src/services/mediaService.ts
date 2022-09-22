@@ -5,6 +5,7 @@ import { CDN_URL } from '../common/constants.js';
 import { MediaCreateDto } from '../dtos/media-create.dto.js';
 import { ProcessMediaFile } from '../utils/videoProcessService.js';
 import { ParameterDto } from '../dtos/parameter.dto.js';
+import { Media } from '../entities/media.js';
 
 const s3Service = new S3Service();
 
@@ -30,6 +31,26 @@ export default class MediaService {
       createdAt: new Date().toISOString(),
       parameters: mediaParameters,
     });
+  }
+
+  public async getMediaByIdAsync(userId: string, mediaId: string): Promise<Media> {
+    const media = await MediaRepository.findOneOrFail({
+      where: {
+        id: mediaId,
+        userId: userId,
+      },
+      relations: ['parameters'],
+    });
+    return media;
+  }
+
+  public async getAllMediaByUserAsync(userId: string): Promise<Media[]> {
+    const allMedia = await MediaRepository.find({
+      where: {
+        userId: userId,
+      },
+    });
+    return allMedia;
   }
 
   public async processFile(file: Express.Multer.File): Promise<string> {

@@ -20,7 +20,7 @@ export class Media extends BaseEntity {
   @Column({ name: 'user_id' })
   userId?: string;
 
-  @OneToMany(() => Parameter, param => param.media, { cascade: true, eager: true })
+  @OneToMany(() => Parameter, param => param.media, { cascade: true })
   parameters?: Parameter[];
 
   @ManyToOne(() => User, user => user.portfolio, { orphanedRowAction: 'delete' })
