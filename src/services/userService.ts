@@ -18,7 +18,9 @@ export default class UserService {
     return newUser;
   }
 
-  public async updateUserAsync(user: UserDto): Promise<User> {
-    return {} as User;
+  public async updateUserAsync(id: string, user: UserDto): Promise<User> {
+    await UserRepository.save({ id, ...user });
+    const updatedUser = this.getUserAsync(id);
+    return updatedUser;
   }
 }
