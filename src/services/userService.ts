@@ -4,11 +4,12 @@ import { User } from '../entities/user';
 
 export default class UserService {
   public async getUserAsync(id: string): Promise<User> {
-    const user = await UserRepository.findOneOrFail({
+    const user = await UserRepository.findOne({
       where: {
         id: id,
       },
     });
+    if (!user) throw new Error('USER_NOT_FOUND');
     return user;
   }
 

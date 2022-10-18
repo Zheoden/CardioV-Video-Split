@@ -42,4 +42,13 @@ router.get('/:id', AuthMiddleware, async (req: any, res, next: NextFunction) => 
     .catch(err => next(err));
 });
 
+router.delete('/:id', AuthMiddleware, async (req: any, res, next: NextFunction) => {
+  const userId = req.user.sub;
+  const mediaId = req.params.id;
+  mediaService
+    .deleteMediaByIdAsync(userId, mediaId)
+    .then(data => res.status(200).json(data))
+    .catch(err => next(err));
+});
+
 export default router;

@@ -22,8 +22,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/media', MediaController);
 app.use('/user', UserController);
 app.use((err: any, req: any, res: any, next: any) => {
-  console.error(err.stack);
-  res.status(500).send({ message: 'Error, nada salio flama :(' });
+  console.error(err.message);
+  res.status(500).send({ message: err.message });
 });
 
 app.listen(PORT, () => {

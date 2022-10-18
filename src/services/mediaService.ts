@@ -53,6 +53,14 @@ export default class MediaService {
     return allMedia;
   }
 
+  public async deleteMediaByIdAsync(userId: string, mediaId: string): Promise<void> {
+    await MediaRepository.softDelete({
+      userId: userId,
+      id: mediaId,
+    });
+    return;
+  }
+
   public async processFile(file: Express.Multer.File): Promise<string> {
     const baseFileName = v4();
     const listExt = file.originalname.split('.');
