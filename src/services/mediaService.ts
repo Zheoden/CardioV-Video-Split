@@ -12,7 +12,8 @@ const s3Service = new S3Service();
 export default class MediaService {
   public async createMediaAsync(userId: string, mediaDto: MediaCreateDto, file: Express.Multer.File): Promise<void> {
     const filename = await this.processFile(file);
-    const parameters = await ProcessMediaFile(filename);
+    const fileType = file.mimetype.match(/.*image.*/) ? 'i' : file.mimetype.match(/.*video.*/) ? 'v' : '';
+    const parameters = await ProcessMediaFile(filename, fileType);
     const mediaParameters: ParameterDto[] = [];
     for (const [key, value] of Object.entries(parameters)) {
       if (Number(value) !== -1) {
