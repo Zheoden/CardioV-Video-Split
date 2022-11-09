@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { ParameterType } from '../common/interfaces';
 import { BaseEntity } from '../utils/baseEntity';
 import { Media } from './media';
 
@@ -10,7 +11,7 @@ export class Parameter extends BaseEntity {
   @Column({ name: 'media_id' })
   mediaId?: string;
 
-  @Column()
+  @Column({ type: 'enum', enum: ParameterType, default: null, nullable: true })
   field?: string;
 
   @Column()
@@ -20,6 +21,6 @@ export class Parameter extends BaseEntity {
   unit?: string;
 
   @ManyToOne(() => Media, media => media.parameters, { orphanedRowAction: 'delete' })
-  @JoinColumn({ name: "media_id"})
+  @JoinColumn({ name: 'media_id' })
   media?: Media;
 }

@@ -1,5 +1,7 @@
+import { ParameterType } from "../common/interfaces";
+
 export class ParameterDto {
-  field: string;
+  field?: ParameterType;
   value: string;
   unit: string;
   createdAt: string;
