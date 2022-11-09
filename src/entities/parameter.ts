@@ -14,8 +14,8 @@ export class Parameter extends BaseEntity {
   @Column({ type: 'enum', enum: ParameterType, default: null, nullable: true })
   field?: string;
 
-  @Column()
-  value?: string;
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  value?: number;
 
   @Column()
   unit?: string;

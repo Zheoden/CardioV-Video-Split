@@ -15,6 +15,9 @@ export class Media extends BaseEntity {
   description?: string;
 
   @Column()
+  patology?: string;
+
+  @Column()
   thumbnail?: string;
 
   @Column({ name: 'user_id' })

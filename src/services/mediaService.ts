@@ -24,9 +24,8 @@ export default class MediaService {
         if (Number(number) !== -2) {
           mediaParameters.push({
             field: currentKey,
-            value: String(number),
+            value: Number(number),
             unit: 'cm3',
-            createdAt: new Date().toISOString(),
           });
         }
       });
@@ -35,7 +34,6 @@ export default class MediaService {
       ...mediaDto,
       userId,
       thumbnail: `${CDN_URL}/${filename}`,
-      createdAt: new Date().toISOString(),
       parameters: mediaParameters,
     });
   }
@@ -48,6 +46,7 @@ export default class MediaService {
       },
       relations: ['parameters'],
     });
+    console.log(media);
     return media;
   }
 

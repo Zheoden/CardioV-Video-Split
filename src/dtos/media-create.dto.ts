@@ -10,4 +10,9 @@ export class MediaCreateDto {
   @IsNotEmpty()
   @IsDefined()
   description: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsDefined()
+  patology: string;
 }

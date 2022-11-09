@@ -14,7 +14,7 @@ export default class UserService {
   }
 
   public async registerUserAsync(id: string): Promise<User> {
-    await UserRepository.save({ id, createdAt: new Date().toISOString() });
+    await UserRepository.save({ id });
     const newUser = this.getUserAsync(id);
     return newUser;
   }
