@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "description": "this proyect is intented to be an university project",
   "main": "server.js",
+  "engines": {
+    "node": ">=16.10.0"
+  },
   "scripts": {
     "test": "test",
     "build": "rm -rf dist && tsc",
