@@ -5,8 +5,8 @@ if [ true ]; then
 
     SSL_FILES_DIR=/etc/pki/tls/certs
     mkdir -p $SSL_FILES_DIR
-    aws s3 cp s3://nexton-lets-encrypt-certificates/fullchain.pem $SSL_FILES_DIR/server.crt
-    aws s3 cp s3://nexton-lets-encrypt-certificates/privkey.pem $SSL_FILES_DIR/server.key
+    aws s3 cp s3://cardiov-assets/SSL/fullchain.pem $SSL_FILES_DIR/server.crt
+    aws s3 cp s3://cardiov-assets/SSL/privkey.pem $SSL_FILES_DIR/server.key
 
     cp scripts/https/https.conf /etc/nginx/conf.d/docker-redirect.conf
 else
