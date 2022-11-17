@@ -14,4 +14,4 @@ else
     cp scripts/https/listen-80.conf /etc/nginx/conf.d/docker-redirect.conf
 fi
 
-sudo service nginx restart 
+sudo systemctl restart nginx
