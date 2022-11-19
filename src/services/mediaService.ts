@@ -13,15 +13,15 @@ const s3Service = new S3Service();
 export default class MediaService {
   public async createMediaAsync(userId: string, mediaDto: MediaCreateDto, file: Express.Multer.File): Promise<void> {
     const filename = await this.processFile(file);
-    console.log(filename);
+
     const fileType = file.mimetype.match(/.*image.*/) ? 'i' : file.mimetype.match(/.*video.*/) ? 'v' : '';
     const parameters = await ProcessMediaFile(filename, fileType);
-    console.log(parameters);
+
     const mediaParameters: ParameterDto[] = [];
     for (const [key, value] of Object.entries(parameters)) {
       const currentKey = this.getEnumByString(key);
       value.forEach((number: number) => {
-        if (Number(number) !== -2) {
+        if (Number(number) !== -1) {
           mediaParameters.push({
             field: currentKey,
             value: Number(number),
@@ -46,7 +46,6 @@ export default class MediaService {
       },
       relations: ['parameters'],
     });
-    console.log(media);
     return media;
   }
 
