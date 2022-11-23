@@ -18,7 +18,7 @@ jobs:
         run: npm run build
 
       - name: Generate deployment package
-        run: zip -r deploy.zip . -x node_modules/\* .git/\* src/\*
+        run: zip -r deploy.zip . -x node_modules .git src
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v20
