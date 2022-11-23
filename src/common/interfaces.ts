@@ -3,6 +3,7 @@ export interface VideoProcessValue {
   muscle_thickness: number[];
   ventricle_area: number[];
   ventricle_volume: number[];
+  media: string[];
 }
 
 export enum ParameterType {
