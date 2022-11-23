@@ -7,34 +7,48 @@ import { ProcessMediaFile } from '../utils/videoProcessService.js';
 import { ParameterDto } from '../dtos/parameter.dto.js';
 import { Media } from '../entities/media.js';
 import { ParameterType } from '../common/interfaces.js';
+import { MediaMediaDto } from '../dtos/media-media.dto.js';
 
 const s3Service = new S3Service();
 
 export default class MediaService {
   public async createMediaAsync(userId: string, mediaDto: MediaCreateDto, file: Express.Multer.File): Promise<void> {
     const filename = await this.processFile(file);
-    console.log(filename);
+
     const fileType = file.mimetype.match(/.*image.*/) ? 'i' : file.mimetype.match(/.*video.*/) ? 'v' : '';
     const parameters = await ProcessMediaFile(filename, fileType);
-    console.log(parameters);
+
     const mediaParameters: ParameterDto[] = [];
+    const mediaMediaParameters: MediaMediaDto[] = [];
+
     for (const [key, value] of Object.entries(parameters)) {
       const currentKey = this.getEnumByString(key);
-      value.forEach((number: number) => {
-        if (Number(number) !== -2) {
-          mediaParameters.push({
-            field: currentKey,
-            value: Number(number),
-            unit: 'cm3',
+      if (currentKey) {
+        value.forEach((number: number) => {
+          if (Number(number) !== -1) {
+            mediaParameters.push({
+              field: currentKey,
+              value: Number(number),
+              unit: 'cm3',
+            });
+          }
+        });
+      } else {
+        // this is the media file
+        value.forEach((mediaArray: string[]) => {
+          mediaMediaParameters.push({
+            thumbnail: `${CDN_URL}/${mediaArray[0]}`,
+            title: mediaArray[1],
           });
-        }
-      });
+        });
+      }
     }
     await MediaRepository.save({
       ...mediaDto,
       userId,
       thumbnail: `${CDN_URL}/${filename}`,
       parameters: mediaParameters,
+      media: mediaMediaParameters,
     });
   }
 
@@ -44,9 +58,8 @@ export default class MediaService {
         id: mediaId,
         userId: userId,
       },
-      relations: ['parameters'],
+      relations: ['parameters', 'media'],
     });
-    console.log(media);
     return media;
   }
 

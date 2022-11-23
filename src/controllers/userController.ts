@@ -21,7 +21,6 @@ router.post('/register', AuthMiddleware, async (req: any, res, next: NextFunctio
 
 router.patch('/me', AuthMiddleware, async (req: any, res, next: NextFunction) => {
   const body = req.body;
-  console.log(body);
   userService
     .updateUserAsync(req.user.sub, body)
     .then(user => res.status(200).json(user))
