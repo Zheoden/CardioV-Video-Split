@@ -16,7 +16,7 @@ export default class MediaService {
     const filename = await this.processFile(file);
 
     const fileType = file.mimetype.match(/.*image.*/) ? 'i' : file.mimetype.match(/.*video.*/) ? 'v' : '';
-    const parameters = await ProcessMediaFile(filename, fileType);
+    const parameters = await ProcessMediaFile(filename, fileType, mediaDto.scale);
 
     const mediaParameters: ParameterDto[] = [];
     const mediaMediaParameters: MediaMediaDto[] = [];

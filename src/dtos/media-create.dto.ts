@@ -1,4 +1,4 @@
-import { IsDefined, IsNotEmpty, IsString } from 'class-validator';
+import { IsDefined, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class MediaCreateDto {
   @IsString()
@@ -15,4 +15,7 @@ export class MediaCreateDto {
   @IsNotEmpty()
   @IsDefined()
   patology: string;
+
+  @IsNumber()
+  scale?: number;
 }
