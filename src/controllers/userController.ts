@@ -13,8 +13,9 @@ router.get('/me', AuthMiddleware, async (req: any, res, next: NextFunction) => {
 });
 
 router.post('/register', AuthMiddleware, async (req: any, res, next: NextFunction) => {
+  const body = req.body;
   userService
-    .registerUserAsync(req.user.sub)
+    .registerUserAsync(req.user.sub, body)
     .then(user => res.status(200).json(user))
     .catch(err => next(err));
 });

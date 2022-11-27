@@ -13,8 +13,8 @@ export default class UserService {
     return user;
   }
 
-  public async registerUserAsync(id: string): Promise<User> {
-    await UserRepository.save({ id });
+  public async registerUserAsync(id: string, user: UserDto): Promise<User> {
+    await UserRepository.save({ id, ...user });
     const newUser = this.getUserAsync(id);
     return newUser;
   }

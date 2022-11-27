@@ -93,8 +93,8 @@ export default class MediaService {
 
   private getEnumByString(cadena: string): ParameterType | undefined {
     switch (cadena) {
-      case 'atrium_area':
-        return ParameterType.ATRIUM_AREA;
+      case 'ventricle_perimeter':
+        return ParameterType.VENTRICLE_PERIMETER;
       case 'muscle_thickness':
         return ParameterType.MUSCLE_THICKNESS;
       case 'ventricle_area':
