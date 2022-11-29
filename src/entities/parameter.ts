@@ -12,7 +12,7 @@ export class Parameter extends BaseEntity {
   mediaId?: string;
 
   @Column({ type: 'enum', enum: ParameterType, default: null, nullable: true })
-  field?: string;
+  field?: ParameterType;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   value?: number;
