@@ -101,6 +101,8 @@ export default class MediaService {
         return ParameterType.VENTRICLE_AREA;
       case 'ventricle_volume':
         return ParameterType.VENTRICLE_VOLUME;
+      case 'ejection_fraction':
+        return ParameterType.EJECTION_FRACTION;
       default:
         return;
     }
