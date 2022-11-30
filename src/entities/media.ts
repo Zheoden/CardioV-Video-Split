@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne, JoinColumn } from 'typeorm';
+import { Gender } from '../common/interfaces';
 import { BaseEntity } from '../utils/baseEntity';
 import { MediaMedia } from './mediaMedia';
 import { Parameter } from './parameter';
@@ -26,6 +27,12 @@ export class Media extends BaseEntity {
 
   @Column({ name: 'user_id' })
   userId?: string;
+
+  @Column({ enum: Gender, type: 'enum', default: Gender.MALE })
+  gender: Gender;
+
+  @Column()
+  age: number;
 
   @OneToMany(() => Parameter, param => param.media, { cascade: true })
   parameters?: Parameter[];

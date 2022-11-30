@@ -14,3 +14,8 @@ export enum ParameterType {
   ATRIUM_AREA = 'ATRIUM_AREA',
   EJECTION_FRACTION = 'EJECTION_FRACTION',
 }
+
+export enum Gender {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+}
