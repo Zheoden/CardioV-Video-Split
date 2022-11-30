@@ -9,5 +9,5 @@ export const myDataSource = new DataSource({
   password: DB_PASSWORD,
   database: 'cardiov',
   entities: ['dist/entities/*.js'],
-  synchronize: true,
+  synchronize: false,
 });

@@ -1,6 +1,6 @@
 import { S3Service } from '../utils/S3Service.js';
 import { v4 } from 'uuid';
-import { MediaRepository } from '../common/repositories.js';
+import { MediaRepository, MetricsViewRepository } from '../common/repositories.js';
 import { CDN_URL } from '../common/constants.js';
 import { MediaCreateDto } from '../dtos/media-create.dto.js';
 import { ProcessMediaFile } from '../utils/videoProcessService.js';
@@ -8,6 +8,7 @@ import { ParameterDto } from '../dtos/parameter.dto.js';
 import { Media } from '../entities/media.js';
 import { ParameterType } from '../common/interfaces.js';
 import { MediaMediaDto } from '../dtos/media-media.dto.js';
+import { MetricsView } from '../entities/mediaView.js';
 
 const s3Service = new S3Service();
 
@@ -70,6 +71,11 @@ export default class MediaService {
       },
     });
     return allMedia;
+  }
+
+  public async getStatsAsync(): Promise<MetricsView> {
+    const metrics = await MetricsViewRepository.find();
+    return metrics[0];
   }
 
   public async deleteMediaByIdAsync(userId: string, mediaId: string): Promise<void> {

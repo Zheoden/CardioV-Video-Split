@@ -33,6 +33,13 @@ router.get('/me', AuthMiddleware, async (req: any, res, next: NextFunction) => {
     .catch(err => next(err));
 });
 
+router.get('/stats', AuthMiddleware, async (req: any, res, next: NextFunction) => {
+  mediaService
+    .getStatsAsync()
+    .then(data => res.status(200).json(data))
+    .catch(err => next(err));
+});
+
 router.get('/:id', AuthMiddleware, async (req: any, res, next: NextFunction) => {
   const userId = req.user.sub;
   const mediaId = req.params.id;
